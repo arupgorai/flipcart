@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { signup, signin, auth } = require('../controller/auth');
+const { signup, signin } = require('../controller/auth');
+const {auth} = require('../middleware');
+const {
+  validateSignupRequest,
+  validateSigninRequest,
+  isRequestValidated
+} = require('../validators/auth');
 
 
 // signin
-router.post('/signin', signin);
+router.post('/signin', validateSigninRequest, isRequestValidated, signin);
 
 
 // signup
-router.post('/signup', signup);
+router.post('/signup', validateSignupRequest, isRequestValidated, signup);
 
 // profile
 router.get('/profile', auth, (req, res) => {

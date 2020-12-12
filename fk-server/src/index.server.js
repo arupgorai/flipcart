@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 // routes
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth');
+const categoryRoutes = require('./routes/category');
+const prductRoutes = require('./routes/product');
 
 // environment variables
 env.config();
@@ -29,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', prductRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

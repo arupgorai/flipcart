@@ -1,0 +1,62 @@
+(*). user sign up
+
+method: POST
+url: localhost:4000/api/signup
+fields : {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string
+}
+
+(*). user signin
+method: POST
+url: localhost:4000/api/signin
+fields : {
+  email: string,
+  password: string
+}
+
+(*). admin sign up
+method: POST
+url: localhost:4000/api/admin/signup
+fields : {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string
+}
+
+(*). admin signin
+method: POST
+url: localhost:4000/api/admin/signin
+fields : {
+  email: string,
+  password: string
+}
+
+
+(*). category create
+method: POST
+url: localhost:4000/api/category/create
+fields : {
+  name: string,
+  parentId: string <-[optional]
+}
+
+
+(*). get category
+method: GET
+url: localhost:4000/api/category/getCategory
+
+(*). add product
+method: POST [formData]
+url: localhost:4000/api/product/create
+fields: {
+  productPicture: file,
+  name: string,
+  price: number,
+  description: string,
+  quantity; number,
+  category: string
+}

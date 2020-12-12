@@ -66,7 +66,11 @@ exports.signin = (req, res) => {
       }
 
       if (user.authenticate(password) && user.role === 'admin') {
-        const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(
+          {_id: user._id, role: user.role},
+          process.env.JWT_SECRET,
+          { expiresIn: '1h' }
+        );
         const {_id, firstName, lastName, email, role, fullName} = user;
 
         res.status(200).json({
@@ -79,24 +83,4 @@ exports.signin = (req, res) => {
         });
       }
     });
-}
-
-exports.auth = (req, res, next) => {
-  const token = req.header('x-auth-token');
-
-  // check if no token
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-
-  // verify token
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({
-      msg: 'Token is not valid'
-    })
-  }
 }
